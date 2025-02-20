@@ -42,7 +42,7 @@ def main():
     # Generate a response using LLMProxy
     response = generate(
         model='4o-mini',
-        system='Consolidate the following information without making it sound like a summary. Cite sources as links:',
+        system='Consolidate the following information without making it sound like a summary. Cite sources as links. Please also break up text into bullet points as appropriate.',
         query=search_summary,
         temperature=0.0,
         lastk=0,
