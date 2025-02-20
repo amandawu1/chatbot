@@ -4,8 +4,8 @@ from llmproxy import generate
 
 app = Flask(__name__)
 
-GOOGLE_API_KEY = "AIzaSyDKNUeIRdGOIacjk--fNa2vcs00WHtqHIM"
-SEARCH_ENGINE_ID = "945654d55c45d4da4"
+# GOOGLE_API_KEY = "AIzaSyDKNUeIRdGOIacjk--fNa2vcs00WHtqHIM"
+# SEARCH_ENGINE_ID = "945654d55c45d4da4"
 
 @app.route('/')
 def hello_world():
@@ -36,15 +36,15 @@ def main():
 
     print(f"Message from {user} : {message}")
     
-    search_summary = google_search(message)
+    # search_summary = google_search(message)
 
     # Generate a response using LLMProxy
     response = generate(
         model='4o-mini',
-        # system='answer my question and add keywords',
-        system='Summarize the following information and answer the query:',
-        # query= message,
-        query=search_summary,
+        system='answer my question and add keywords',
+        # system='Summarize the following information and answer the query:',
+        query= message,
+        # query=search_summary,
         temperature=0.0,
         lastk=0,
         session_id='GenericSession'
