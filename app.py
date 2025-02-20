@@ -42,9 +42,7 @@ def main():
     # Generate a response using LLMProxy
     response = generate(
         model='4o-mini',
-        # system='answer my question and add keywords',
-        system='Summarize the following information and answer the query, and cite sources:',
-        # query= message,
+        system='Summarize the following information and answer the query, and cite sources as links:',
         query=search_summary,
         temperature=0.0,
         lastk=0,
