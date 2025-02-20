@@ -1,18 +1,19 @@
 import requests
 from flask import Flask, request, jsonify
 from llmproxy import generate
+import os
 
 app = Flask(__name__)
 
-# GOOGLE_API_KEY = "AIzaSyDKNUeIRdGOIacjk--fNa2vcs00WHtqHIM"
-# SEARCH_ENGINE_ID = "945654d55c45d4da4"
+GOOGLE_API_KEY = os.environ.get("googleSearchAPI")
+SEARCH_ENGINE_ID = os.environ.get("searchID")
 
 @app.route('/')
 def hello_world():
    return jsonify({"text":'Hello from Koyeb - you reached the main page!'})
 
 def google_search(query):
-    url = f"https://www.googleapis.com/customsearch/v1?q={query}&key={GOOGLE_API_KEY}&cx={CX}"
+    url = f"https://www.googleapis.com/customsearch/v1?q={query}&key={GOOGLE_API_KEY}&cx={SEARCH_ENGINE_ID}"
     response = requests.get(url)
     if response.status_code == 200:
         results = response.json().get("items", [])
@@ -42,7 +43,7 @@ def main():
     response = generate(
         model='4o-mini',
         # system='answer my question and add keywords',
-        system='Summarize the following information and answer the query highlighting keywords:',
+        system='Summarize the following information and answer the query, and cite sources:',
         # query= message,
         query=search_summary,
         temperature=0.0,
