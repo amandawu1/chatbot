@@ -47,7 +47,7 @@ def main():
         # query=search_summary,
         temperature=0.0,
         lastk=0,
-        session_id='GenericSession'
+        session_id='GenericSession' #take userID into account to create separate sessionIDs for multiple simultaneous users
     )
 
     response_text = response['response']
