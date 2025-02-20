@@ -11,14 +11,14 @@ app = Flask(__name__)
 def hello_world():
    return jsonify({"text":'Hello from Koyeb - you reached the main page!'})
 
-def google_search(query):
-    url = f"https://www.googleapis.com/customsearch/v1?q={query}&key={GOOGLE_API_KEY}&cx={CX}"
-    response = requests.get(url)
-    if response.status_code == 200:
-        results = response.json().get("items", [])
-        summaries = [item["snippet"] for item in results[:5]]
-        return " ".join(summaries)
-    return "No relevant results found."
+# def google_search(query):
+#     url = f"https://www.googleapis.com/customsearch/v1?q={query}&key={GOOGLE_API_KEY}&cx={CX}"
+#     response = requests.get(url)
+#     if response.status_code == 200:
+#         results = response.json().get("items", [])
+#         summaries = [item["snippet"] for item in results[:5]]
+#         return " ".join(summaries)
+#     return "No relevant results found."
 
 @app.route('/query', methods=['POST'])
 def main():
