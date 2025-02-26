@@ -163,7 +163,7 @@ class OrchestratorAgent:
         """
 
         classification_prompt = (
-            "Please determine if the following user question is about finance, money, or a company's financials:\n"
+            "Please determine if the following user question is about finance, money, sales, growth, or a company's financials:\n"
             f"Question: \"{message}\"\n\n"
             "Answer with exactly one word, either 'yes' or 'no'."
         )
