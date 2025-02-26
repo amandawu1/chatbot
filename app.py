@@ -92,7 +92,7 @@ class OrchestratorAgent:
 
     def _call_llm(self, user_id, content, do_search=True):
         system_prompt = (
-            "Summarize the following information and answer the following query and cite your sources as links to the article that provided that information. "
+            "Summarize the following information and answer the following query and cite your sources as links to the article that provided that information. Please do not sound like you are summarzing information, rather just highlight the most important points from the information provided."
             "At the end, please include potential followup questions."
         )
         if not do_search:
