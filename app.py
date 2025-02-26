@@ -40,9 +40,9 @@ class OrchestratorAgent:
         # 2. Check if user is new to provide an introduction
         if not session["has_introduced"]:
             if msg_lower in ["hi", "hello", "hey", "hola"]:
-                # session["has_introduced"] = True
-                # # Save user’s message to history
-                # session["history"].append({"role": "user", "content": message})
+                session["has_introduced"] = True
+                # Save user’s message to history
+                session["history"].append({"role": "user", "content": message})
 
                 introduction = (
                     "Hello! I’m your financial assistant bot. "
