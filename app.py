@@ -8,6 +8,7 @@ app = Flask(__name__)
 GOOGLE_API_KEY = os.environ.get("googleSearchAPI")
 SEARCH_ENGINE_ID = os.environ.get("searchID")
 
+
 ########################
 # Orchestrator Agent
 ########################
@@ -104,7 +105,7 @@ class OrchestratorAgent:
             query=content,
             temperature=0.0,
             lastk=0,
-            session_id='GenericSession'  # You could also use user_id here if your LLM proxy supports it
+            session_id='user_id'  # You could also use user_id here if your LLM proxy supports it
         )
         response_text = response['response']
 
