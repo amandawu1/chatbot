@@ -41,31 +41,44 @@ class OrchestratorAgent:
         print(msg_lower);
         
         # 2. Check if user is new to provide an introduction
-        if not session["has_introduced"]:
-            if msg_lower in ["hi", "hello", "hey", "hola"]:
-                session["has_introduced"] = True
-                # Save user’s message to history
-                session["history"].append({"role": "user", "content": message})
+        # if not session["has_introduced"]:
+        #     if msg_lower in ["hi", "hello", "hey", "hola"]:
+        #         session["has_introduced"] = True
+        #         # Save user’s message to history
+        #         session["history"].append({"role": "user", "content": message})
 
-                introduction = (
-                    "Hello! I’m your financial assistant bot. "
-                    "I can help summarize information, answer queries, and fetch live data. "
-                    "How can I help you today?"
-                )
-                session["history"].append({"role": "assistant", "content": introduction})
-                return introduction
-            else:
-                # If user is new but didn't explicitly say "hi", still introduce
-                session["has_introduced"] = True
-                session["history"].append({"role": "user", "content": message})
+        #         introduction = (
+        #             "Hello! I’m your financial assistant bot. "
+        #             "I can help summarize information, answer queries, and fetch live data. "
+        #             "How can I help you today?"
+        #         )
+        #         session["history"].append({"role": "assistant", "content": introduction})
+        #         return introduction
+        #     else:
+        #         # If user is new but didn't explicitly say "hi", still introduce
+        #         session["has_introduced"] = True
+        #         session["history"].append({"role": "user", "content": message})
 
-                introduction = (
-                    "Hello! I’m your financial assistant bot. "
-                    "I can help summarize information, answer queries, and fetch live data. "
-                    "How can I help you today?"
-                )
-                session["history"].append({"role": "assistant", "content": introduction})
-                return introduction
+        #         introduction = (
+        #             "Hello! I’m your financial assistant bot. "
+        #             "I can help summarize information, answer queries, and fetch live data. "
+        #             "How can I help you today?"
+        #         )
+        #         session["history"].append({"role": "assistant", "content": introduction})
+        #         return introduction
+        if (not session["has_introduced"]) or (msg_lower in ["hi", "hello", "hey", "hola"]):
+            session["has_introduced"] = True
+            # Record the user's first message
+            session["history"].append({"role": "user", "content": message})
+
+            introduction = (
+                "Hello! I’m your financial assistant bot. "
+                "I can help summarize information, answer queries, and fetch live data. "
+                "How can I help you today?"
+            )
+            session["history"].append({"role": "assistant", "content": introduction})
+            return introduction
+
                 
         # 3. If the user is already introduced, but their query is not finance-related:
         if not self._is_finance_query(msg_lower):
@@ -76,14 +89,14 @@ class OrchestratorAgent:
             )
             return refusal
 
-        # 3. Optionally ask follow-up questions if the last response indicated we needed more info
-        if session["pending_followup"]:
-            # This is placeholder logic to demonstrate how you might handle a follow-up
-            # In a real scenario, you'd store what the follow-up question was about
-            # and verify the new user input is sufficient to proceed.
-            followup_response = self._call_llm(user_id, message, do_search=True)
-            session["pending_followup"] = False
-            return followup_response
+        # # 3. Optionally ask follow-up questions if the last response indicated we needed more info
+        # if session["pending_followup"]:
+        #     # This is placeholder logic to demonstrate how you might handle a follow-up
+        #     # In a real scenario, you'd store what the follow-up question was about
+        #     # and verify the new user input is sufficient to proceed.
+        #     followup_response = self._call_llm(user_id, message, do_search=True)
+        #     session["pending_followup"] = False
+        #     return followup_response
 
         # 4. Otherwise, handle the normal query flow
         #    Decide if you want to do a Google search based on user input or system logic
