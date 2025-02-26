@@ -115,7 +115,7 @@ class OrchestratorAgent:
             system=system_prompt,
             query=content,
             temperature=0.0,
-            lastk=0,
+            lastk=8,
             session_id='user_id' 
         )
         response_text = response['response']
