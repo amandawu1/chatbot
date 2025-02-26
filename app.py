@@ -32,6 +32,9 @@ class OrchestratorAgent:
                 "has_introduced": False,
                 "pending_followup": False,
             }
+        print("User ID / Name is:", user_id)
+        print("Current sessions:", self.user_sessions.keys())
+
 
         session = self.user_sessions[user_id]
         msg_lower = message.lower().strip()
