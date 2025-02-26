@@ -158,17 +158,30 @@ class OrchestratorAgent:
         
     def _is_finance_query(self, message: str) -> bool:
         """
-        Checks if the user's message is related to finance.
-        You can expand these keywords as needed.
+        Uses the LLM to determine if `message` is finance-related.
+        Returns True if finance-related, False otherwise.
         """
-        finance_keywords = [
-            "stock", "stocks", "market", "finance", "financial", "price",
-            "invest", "investment", "investing", "loan", "mortgage", "bond",
-            "fund", "mutual fund", "crypto", "bitcoin", "exchange", "advice", 
-            "ticket", "index", "money", "checking", "savings", "save", "account"
-        ]
-        msg_lower = message.lower()
-        return any(keyword in msg_lower for keyword in finance_keywords)
+
+        classification_prompt = (
+            "Please determine if the following user question is about finance:\n"
+            f"Question: \"{message}\"\n\n"
+            "Answer with exactly one word, either 'yes' or 'no'."
+        )
+
+        # Call the LLM with a classification prompt
+        response = generate(
+            model='4o-mini',
+            system="You are a helpful classifier.",
+            query=classification_prompt,
+            temperature=0.0,
+            lastk=0,
+            session_id="ClassifierSession"
+        )
+
+        classification = response['response'].strip().lower()
+
+        # If the LLM says "yes", we assume finance-related
+        return classification.startswith("yes")
 
 
 
