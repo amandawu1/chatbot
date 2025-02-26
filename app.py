@@ -95,7 +95,10 @@ class OrchestratorAgent:
         Calls your LLM (via llmproxy.generate) with appropriate prompts.
         You can customize the system prompt or chain-of-thought logic here.
         """
-        system_prompt = "Summarize the following information and answer the query:"
+        system_prompt = (
+            "Summarize the following information and answer the following query and cite your sources. "
+            "At the end, please include potential followup questions."
+        )
         if not do_search:
             system_prompt = (
                 "You are a financial advice chatbot. "
