@@ -34,6 +34,7 @@ class OrchestratorAgent:
 
         session = self.user_sessions[user_id]
         msg_lower = message.lower().strip()
+        print(msg_lower);
         
         # 2. Check if user is new to provide an introduction
         if not session["has_introduced"]:
