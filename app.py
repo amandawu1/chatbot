@@ -66,6 +66,15 @@ class OrchestratorAgent:
                 )
                 session["history"].append({"role": "assistant", "content": introduction})
                 return introduction
+                
+        # 3. If the user is already introduced, but their query is not finance-related:
+        if not self._is_finance_query(msg_lower):
+            # Short-circuit and refuse if topic is non-finance
+            refusal = (
+                "I’m designed to handle finance-related questions only. "
+                "Please refer to another resource for non-finance topics."
+            )
+            return refusal
 
         # 3. Optionally ask follow-up questions if the last response indicated we needed more info
         if session["pending_followup"]:
@@ -146,6 +155,21 @@ class OrchestratorAgent:
             # Then join them up
             return " ".join(summaries)
         return "No relevant results found."
+        
+    def _is_finance_query(self, message: str) -> bool:
+        """
+        Checks if the user's message is related to finance.
+        You can expand these keywords as needed.
+        """
+        finance_keywords = [
+            "stock", "stocks", "market", "finance", "financial", "price",
+            "invest", "investment", "investing", "loan", "mortgage", "bond",
+            "fund", "mutual fund", "crypto", "bitcoin", "exchange", "advice", 
+            "ticket", "index", "money", "checking", "savings", "save", "account"
+        ]
+        msg_lower = message.lower()
+        return any(keyword in msg_lower for keyword in finance_keywords)
+
 
 
 ########################
