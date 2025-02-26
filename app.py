@@ -163,7 +163,7 @@ class OrchestratorAgent:
         """
 
         classification_prompt = (
-            "Please determine if the following user question is about finance:\n"
+            "Please determine if the following user question is about finance, money, or a company's financials:\n"
             f"Question: \"{message}\"\n\n"
             "Answer with exactly one word, either 'yes' or 'no'."
         )
@@ -171,7 +171,7 @@ class OrchestratorAgent:
         # Call the LLM with a classification prompt
         response = generate(
             model='4o-mini',
-            system="You are a helpful classifier.",
+            system="You are a helpful classifier that determines if a question is related to finance.",
             query=classification_prompt,
             temperature=0.0,
             lastk=0,
