@@ -133,7 +133,17 @@ class OrchestratorAgent:
 
         if response.status_code == 200:
             results = response.json().get("items", [])
-            summaries = [item["snippet"] for item in results[:5]]
+            # summaries = [item["snippet"] for item in results[:5]]
+            # return " ".join(summaries)
+            summaries = []
+            for item in results[:5]:
+                snippet = item["snippet"]
+                link = item["link"]
+                # Combine them (or store them as a single string):
+                summary_line = f"{snippet}\nSource: {link}\n"
+                summaries.append(summary_line)
+
+            # Then join them up
             return " ".join(summaries)
         return "No relevant results found."
 
