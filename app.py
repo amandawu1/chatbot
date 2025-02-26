@@ -120,7 +120,7 @@ class OrchestratorAgent:
         Decide if we want to perform a Google search. Here, we do a trivial check:
         if the message contains the word 'stock' or 'market', assume we need more data.
         """
-        triggers = ["stock", "market", "finance", "price"]
+        triggers = ["stock", "market", "finance", "price", "invest", "stocks"]
         msg_lower = message.lower()
         return any(trig in msg_lower for trig in triggers)
 
