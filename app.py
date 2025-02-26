@@ -91,12 +91,8 @@ class OrchestratorAgent:
         return llm_response
 
     def _call_llm(self, user_id, content, do_search=True):
-        """
-        Calls your LLM (via llmproxy.generate) with appropriate prompts.
-        You can customize the system prompt or chain-of-thought logic here.
-        """
         system_prompt = (
-            "Summarize the following information and answer the following query and cite your sources. "
+            "Summarize the following information and answer the following query and cite your sources as links to the article that provided that information. "
             "At the end, please include potential followup questions."
         )
         if not do_search:
@@ -111,7 +107,7 @@ class OrchestratorAgent:
             query=content,
             temperature=0.0,
             lastk=0,
-            session_id='user_id'  # You could also use user_id here if your LLM proxy supports it
+            session_id='user_id' 
         )
         response_text = response['response']
 
